@@ -25,4 +25,4 @@ jobs:
       - name: Pull image from docker hub
         run: docker pull chwanwitdeedam/reactjs-app: latest
       - name: Run Docker Container
-        run: docker run -d -p 4000:4000 --name reactjs-app-container -e
+        run: docker run -d -p 4000:4000 --name reactjs-app-container
