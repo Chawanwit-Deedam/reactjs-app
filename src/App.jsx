@@ -9,15 +9,27 @@ import { Link } from 'react-router-dom';
 
 function App() {
   const [users, setUser] = useState([])
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
+  const [data, setData] = useState({
+    firstName: '',
+    lastName: '',
+    email: ''
+  })
   const userProvider = new UserService()
 
   useEffect(() => {
     getUserAll()
   }, [])
 
+  const handleChange = (e) => {
+    setData({
+        ...data,
+        [e.target.name]: e.target.value
+      })
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    addUser()
+  }
   const getUserAll = async () => {
     try {
       const allDate = await userProvider.getAll();
@@ -29,30 +41,22 @@ function App() {
     }
   }
   const addUser = async () => {
-    const newUser = {
-      firstName,
-      lastName,
-      email
-    }
     try {
-      await userProvider.create(newUser);
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.onmouseenter = Swal.stopTimer;
-          toast.onmouseleave = Swal.resumeTimer;
-        }
-      });
-      Toast.fire({
-        icon: "success",
-        title: "Signed in successfully"
-      });
+      await userProvider.create(data);
+      Swal.fire({
+        title: "Create Successfully",
+        text: "Create Successfully",
+        icon: "success"
+      })
     } catch (error) {
       console.log(error)
+    } finally {
+      getUserAll()
+      setData({
+        firstName: '',
+        lastName: '',
+        email: ''
+      })
     }
   }
   const deleteUser = async (id) => {
@@ -66,7 +70,7 @@ function App() {
       });
       swalWithBootstrapButtons.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: `Do you want to delete ID: ${id}`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Yes, delete it!",
@@ -77,7 +81,7 @@ function App() {
           await userProvider.delete(id);
           swalWithBootstrapButtons.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "Your ID has been deleted.",
             icon: "success"
           });
           getUserAll()
@@ -87,7 +91,7 @@ function App() {
         ) {
           swalWithBootstrapButtons.fire({
             title: "Cancelled",
-            text: "Your imaginary file is safe :)",
+            text: "Your ID is safe :)",
             icon: "error"
           });
         }
@@ -103,7 +107,7 @@ function App() {
 
   return (
     <>
-    <form onSubmit={addUser}>
+    <form onSubmit={handleSubmit}>
       
     <h3>Create User</h3>
     <div className="mb-3">
@@ -113,8 +117,8 @@ function App() {
         type="text"
         className="form-control"
         name="firstName"
-        value={firstName}
-        onChange={e => setFirstName(e.target.value)}
+        value={data.firstName}
+        onChange={e => handleChange(e)}
       />
       <label htmlFor="lastName" className="form-label">Last Name</label>
       <input
@@ -122,8 +126,8 @@ function App() {
         type="text"
         className="form-control"
         name="lastName"
-        value={lastName}
-        onChange={e => setLastName(e.target.value)}
+        value={data.lastName}
+        onChange={e => handleChange(e)}
       />
       <label htmlFor="email" className="form-label">Email</label>
       <input
@@ -131,13 +135,15 @@ function App() {
         type="email"
         name="email"
         className="form-control"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
+        value={data.email}
+        onChange={e => handleChange(e)}
       />
     </div>
     <div className="d-grid gap-2 mb-3">
       <button className="btn btn-primary" type="submit" value="Add" >Add</button>
     </div>
+
+    {/* get all user */}
     </form>
       <h3>User Manage</h3>
       <table className="table table-hover ">
