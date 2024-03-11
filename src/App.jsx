@@ -151,7 +151,7 @@ function App() {
       <table className="table table-hover ">
         <thead className='table-light'>
           <tr>
-            <th>id</th>
+            <th>ID</th>
             <th>Name</th>
             <th>lastName</th>
             <th>email</th>
