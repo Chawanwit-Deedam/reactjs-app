@@ -81,7 +81,7 @@ function App() {
           await userProvider.delete(id);
           swalWithBootstrapButtons.fire({
             title: "Deleted!",
-            text: "Your ID has been deleted.",
+            text: `Your ID: ${id} has been deleted.`,
             icon: "success"
           });
           getUserAll()
@@ -107,44 +107,46 @@ function App() {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
-      
-    <h3>Create User</h3>
-    <div className="mb-3">
-      <label htmlFor="firstName" className="form-label">First Name</label>
-      <input
-        id="firstName"
-        type="text"
-        className="form-control"
-        name="firstName"
-        value={data.firstName}
-        onChange={e => handleChange(e)}
-      />
-      <label htmlFor="lastName" className="form-label">Last Name</label>
-      <input
-        id="lastName"
-        type="text"
-        className="form-control"
-        name="lastName"
-        value={data.lastName}
-        onChange={e => handleChange(e)}
-      />
-      <label htmlFor="email" className="form-label">Email</label>
-      <input
-        id="email"
-        type="email"
-        name="email"
-        className="form-control"
-        value={data.email}
-        onChange={e => handleChange(e)}
-      />
-    </div>
-    <div className="d-grid gap-2 mb-3">
-      <button className="btn btn-primary" type="submit" value="Add" >Add</button>
+    <div className='card shadow p-3 mb-5 bg-body-tertiary rounded border border-secondary-subtle'>
+      <form onSubmit={handleSubmit}>
+        <h3>Create User</h3>
+        <div className="mb-3">
+          <label htmlFor="firstName" className="form-label">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            className="form-control"
+            name="firstName"
+            value={data.firstName}
+            onChange={e => handleChange(e)}
+          />
+          <label htmlFor="lastName" className="form-label">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            className="form-control"
+            name="lastName"
+            value={data.lastName}
+            onChange={e => handleChange(e)}
+          />
+          <label htmlFor="email" className="form-label">Email</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            className="form-control"
+            value={data.email}
+            onChange={e => handleChange(e)}
+          />
+        </div>
+        <div className="d-grid gap-2 mb-3">
+          <button className="btn btn-primary" type="submit" value="Add" >Create +</button>
+        </div>
+      </form>
     </div>
 
     {/* get all user */}
-    </form>
+    <div className='card shadow p-3 mb-5 bg-body-tertiary rounded border border-secondary-subtle'>
       <h3>User Manage</h3>
       <table className="table table-hover ">
         <thead className='table-light'>
@@ -166,13 +168,14 @@ function App() {
             <td className=''  style={{ width: '100%' }}>
               <div className='d-flex justify-content-between' style={{ width: '150px' }}>
                 <Link to={`/update/${val._id}`}><button className="btn btn-warning">Edit</button></Link>   
-                <button className="btn btn-danger" onClick={event => deleteUser(val._id)}>delete</button>
+                <button className="btn btn-danger" onClick={() => deleteUser(val._id)}>delete</button>
               </div>
             </td>
           </tr>
         ))}
         </tbody>
       </table>
+    </div>
     </>
   )
 }

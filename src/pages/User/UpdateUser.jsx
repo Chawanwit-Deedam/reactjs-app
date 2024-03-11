@@ -1,7 +1,8 @@
-import { useParams, useNavigate  } from "react-router-dom"
+import { useParams  } from "react-router-dom"
 import UserService from "../../resources/UserProvider.js"
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom';
 
 function UpdateUser() {
   const [user, setUser] = useState({
@@ -13,7 +14,6 @@ function UpdateUser() {
 
   const userProvider = new UserService()
   const { id } = useParams()
-  const navigate = useNavigate()
 
   useEffect(() => {
     getUserById(id)
@@ -54,10 +54,10 @@ function UpdateUser() {
       reverseButtons: true
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const update = await userProvider.update(id, payload)
+        await userProvider.update(id, payload)
         swalWithBootstrapButtons.fire({
           title: "Updated!",
-          text: "Your ID has been Updated.",
+          text: `Your ID: ${id} has been Updated.`,
           icon: "success"
         });
       } else if (
@@ -76,44 +76,48 @@ function UpdateUser() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <h3>Edit User</h3>
-          <h5>
-            id: { user._id }
-          </h5>
-          <label className="form-label">First Name</label>
-          <input
-            type='text'
-            name='firstName'
-            className="form-control"
-            onChange={e => handleChange(e)}
-            placeholder='First Name'
-            value={user.firstName}
-          />
-          <label className="form-label">Last Name</label>
-          <input
-            type='text'
-            name='lastName'
-            placeholder='Last Name'
-            className="form-control"
-            value={user.lastName}
-            onChange={e => handleChange(e)}
-          />
+      <div className="card shadow p-3 mb-5 bg-body-tertiary rounded">
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <h3>Edit User</h3>
+            <h5>
+              id: { user._id }
+            </h5>
+            <label className="form-label">First Name</label>
+            <input
+              type='text'
+              name='firstName'
+              className="form-control"
+              onChange={e => handleChange(e)}
+              placeholder='First Name'
+              value={user.firstName}
+            />
+            <label className="form-label">Last Name</label>
+            <input
+              type='text'
+              name='lastName'
+              placeholder='Last Name'
+              className="form-control"
+              value={user.lastName}
+              onChange={e => handleChange(e)}
+            />
 
-          <label className="form-label">Email</label>
-          <input
-            type='text'
-            name='email'
-            placeholder='Email'
-            className="form-control"
-            value={user.email}
-            onChange={e => handleChange(e)}
-          />
-        </div>
-
-        <button type="submit">Submit</button>
-      </form>
+            <label className="form-label">Email</label>
+            <input
+              type='text'
+              name='email'
+              placeholder='Email'
+              className="form-control"
+              value={user.email}
+              onChange={e => handleChange(e)}
+            />
+          </div>
+          <div className="d-flex justify-content-between">
+          <Link to={'/'}><button className="btn btn-primary">Back</button></Link> 
+            <button className="btn btn-warning" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
     
   )

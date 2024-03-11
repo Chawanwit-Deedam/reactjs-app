@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM  from 'react-dom/client'
 import App from './App.jsx'
 import UpdateUser from './pages/User/UpdateUser.jsx'
+import Login from './pages/Login/Login.jsx'
 import './index.css'
 import {
   createBrowserRouter,
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "update/:id",
     element: <UpdateUser />
+  },
+  {
+    path: "login",
+    element: <Login />
   }
 ])
 
