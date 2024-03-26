@@ -83,7 +83,7 @@ function UpdateUser() {
             <h5>
               id: { user._id }
             </h5>
-            <label className="form-label">First Name</label>
+            <label className="form-label">firstname</label>
             <input
               type='text'
               name='firstName'
