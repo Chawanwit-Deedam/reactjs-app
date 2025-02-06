@@ -67,6 +67,9 @@ function Login () {
                     onChange={e => handleChange(e)}
                 />
             </div>
+            <div className="mb-3">
+                <label className="form-label">test lable</label>
+            </div>
             <div className='d-flex justify-content-between'>
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <button className="btn btn-warning" onClick={() => getCustomer()}>Submit</button>
