@@ -19,6 +19,7 @@ function Login () {
             const {data} = await authProvider.login(customer)
             console.log('customer => ', customer)
             console.log('token => ', data.token)
+            console.log('data => ', data)
             localStorage.setItem('token', data.token)
         } catch (error) {
             console.log(error)
@@ -66,6 +67,9 @@ function Login () {
                     value={customer.password}
                     onChange={e => handleChange(e)}
                 />
+            </div>
+            <div className="mb-3">
+                <label className="form-label">test lable</label>
             </div>
             <div className='d-flex justify-content-between'>
                 <button type="submit" className="btn btn-primary">Submit</button>
