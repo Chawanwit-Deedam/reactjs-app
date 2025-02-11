@@ -83,7 +83,7 @@ function UpdateUser() {
             <h5>
               UserId: { user._id }
             </h5>
-            <label className="form-label">First Name</label>
+            <label className="form-label">First Name Introduce</label>
             <input
               type='text'
               name='firstName'
@@ -92,7 +92,7 @@ function UpdateUser() {
               placeholder='First Name'
               value={user.firstName}
             />
-            <label className="form-label">Last Name</label>
+            <label className="form-label">Last Name to convert</label>
             <input
               type='text'
               name='lastName'
@@ -102,7 +102,7 @@ function UpdateUser() {
               onChange={e => handleChange(e)}
             />
 
-            <label className="form-label">Email</label>
+            <label className="form-label">Email to register</label>
             <input
               type='text'
               name='email'
