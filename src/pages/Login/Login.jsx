@@ -47,7 +47,7 @@ function Login () {
     <div>
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label">username</label>
+                <label className="form-label">username to register</label>
                 <input
                     id="username"
                     type="text"
@@ -58,7 +58,7 @@ function Login () {
                 />
             </div>
             <div className="mb-3">
-                <label className="form-label">Password</label>
+                <label className="form-label">Password to register</label>
                 <input
                     id="password"
                     type="password"
